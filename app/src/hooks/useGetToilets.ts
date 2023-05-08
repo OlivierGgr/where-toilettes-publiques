@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { getNearbyToilets } from "../api";
 import { ToiletInterface } from "../types/types";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { FilterProps } from "../components/sider/Sider";
+import { readLocallyStoredData } from "../components/map/map.utils";
 
 export default function useGetToilets(userLocation: any, filters: FilterProps) {
     const [toiletLocations, setToiletLocations] = useState<ToiletInterface[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const favorites = useSelector((state: RootState) => state.favorites);
+    const favorites = readLocallyStoredData();
 
     useEffect(() => {
         setIsLoading(true);

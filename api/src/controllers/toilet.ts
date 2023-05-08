@@ -62,7 +62,14 @@ export const getNearbyToilets = async (req: Request, res: Response) => {
             },
         });
 
-        res.status(201).json({ toilets: formatToiletData(toilets, req.query.favorites as string) });
+        res.status(201).json({
+            toilets: formatToiletData(
+                toilets,
+                req.query.favorites as string,
+                req.query.isFavorites as string | undefined,
+                req.query.isOpen as string | undefined
+            ),
+        });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
