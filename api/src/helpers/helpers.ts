@@ -21,13 +21,50 @@ function findIfIsWithinOpeningHours(time: string): boolean {
     }
 }
 
-export function formatToiletData(toilet: any, favorites: string): any {
-    return toilet.map((t: any) => ({
+function findBoolFromString(string: string | undefined) {
+    if (string == null) return false;
+
+    if (string === "true") {
+        return true;
+    } else if (string === "false") {
+        return false;
+    }
+}
+
+function filterToilets(
+    toilet: any,
+    favoritesArr: string[],
+    favoritesOnly?: string | undefined,
+    openOnly?: string | undefined
+) {
+    let filteredToilets = toilet;
+
+    if (findBoolFromString(favoritesOnly)) {
+        filteredToilets = toilet.filter((t: any) => (favoritesArr || []).some((f) => f === t._id.toString()));
+    }
+    if (findBoolFromString(openOnly)) {
+        filteredToilets = filteredToilets.filter((t: any) => findIfIsWithinOpeningHours(t.horaire));
+    }
+
+    return filteredToilets;
+}
+
+export function formatToiletData(
+    toilet: any,
+    favorites: string,
+    favoritesOnly: string | undefined,
+    openOnly: string | undefined
+): any {
+    const favoritesArr = favorites?.split(",");
+
+    let resToilet = filterToilets(toilet, favoritesArr, favoritesOnly, openOnly);
+
+    return resToilet.map((t: any) => ({
         ...t._doc,
         hasRelaisBebe: interpretFrStringAsBool(t.relais_bebe),
         hasAccessPmr: interpretFrStringAsBool(t.acces_pmr),
         isOpen: findIfIsWithinOpeningHours(t.horaire),
-        isFavorite: (favorites?.split(",") || []).some((f) => f === t._id.toString()),
+        isFavorite: (favoritesArr || []).some((f) => f === t._id.toString()),
     }));
 }
 
