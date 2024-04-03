@@ -4,3 +4,8 @@
     color: rgba(0, 0, 0, 0.88) !important;
     background: #ffffff !important;
 }
+
+.sider-content {
+    display: flex;
+    justify-content: space-between;
+}

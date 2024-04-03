@@ -1,3 +1,4 @@
+export const DEFAULT_SEARCH_DISTANCE = 300;
 export const adaptMapSizeOnSiderCollapse = (collapsed: boolean): void => {
     collapsed
         ? document.documentElement.style.setProperty("--map-width-big-screen", "95%")

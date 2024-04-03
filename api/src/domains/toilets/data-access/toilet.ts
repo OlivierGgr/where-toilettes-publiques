@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { formatToiletData } from "../helpers/helpers";
+import { COMMON_ERROR, CREATED_CODE, SUCCESS_CODE } from "../../core/utils";
+import data from "../../../data.json";
 
-const Toilet = require("./models/Toilets");
-const data = require("../data.json");
+const Toilet = require("../models/Toilets");
 
 export const insertToilets = async (_: Request, res: Response) => {
     try {
@@ -21,16 +22,16 @@ export const insertToilets = async (_: Request, res: Response) => {
         });
 
         Toilet.insertMany(cleanData);
-        res.status(200).json({ ok: "ok" });
+        res.status(SUCCESS_CODE).json({ ok: "ok" });
     } catch (error: any) {
-        res.status(500).json({ message: error.message });
+        res.status(COMMON_ERROR).json({ message: error.message });
     }
 };
 
 export const createToilet = async (req: Request, res: Response) => {
     try {
         const toilet = await Toilet.create(req.body);
-        res.status(201).json({ toilet });
+        res.status(CREATED_CODE).json({ toilet });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
@@ -39,7 +40,7 @@ export const createToilet = async (req: Request, res: Response) => {
 export const getToilets = async (req: Request, res: Response) => {
     try {
         const toilets = await Toilet.find({}).limit(req.body?.limit ?? 20);
-        res.status(201).json({ toilets });
+        res.status(CREATED_CODE).json({ toilets });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
@@ -62,7 +63,7 @@ export const getNearbyToilets = async (req: Request, res: Response) => {
             },
         });
 
-        res.status(201).json({
+        res.status(CREATED_CODE).json({
             toilets: formatToiletData(
                 toilets,
                 req.query.favorites as string,
