@@ -2,7 +2,6 @@ import { Badge, Modal, Space } from "antd";
 import { LOCAL_STORAGE_FAVORITES } from "./map.utils";
 import { FileTextOutlined, StarFilled } from "@ant-design/icons";
 import { ToiletInterface } from "../../types/types";
-import { useDispatch } from "react-redux";
 
 type DetailsMapModalProps = {
     markerModalData: ToiletInterface | null;

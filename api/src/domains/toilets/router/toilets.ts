@@ -5,9 +5,9 @@ import {
   createToilet,
   getToilets,
   getNearbyToilets,
-} from "../controllers/toilet";
+} from "../data-access/toilet";
 
 router.route("/").get(getToilets).post(insertToilets);
 router.route("/nearby").get(getNearbyToilets);
 
-module.exports = router;
+export default router;

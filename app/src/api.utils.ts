@@ -16,9 +16,6 @@ export const buildSearchParams = (
     for (const filter in filters) {
         if (filters[filter as keyof FilterProps]) {
             searchParams.append(filter, "true");
-            // see
-            // https://www.npmjs.com/package/express-query-boolean
-            // for casting string as bool
         }
     }
 

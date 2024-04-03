@@ -1,14 +1,4 @@
-function interpretFrStringAsBool(string: string): boolean {
-    if (string == null) return false;
-    switch (string.toLowerCase()) {
-        case "oui":
-            return true;
-        case "non":
-            return false;
-        default:
-            return false;
-    }
-}
+import { interpretFrStringAsBool } from "../../core/helpers";
 
 function findIfIsWithinOpeningHours(time: string): boolean {
     switch (time.replace(/\s/g, "")) {

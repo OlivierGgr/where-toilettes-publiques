@@ -10,6 +10,7 @@ import "./map.css";
 import "../../index.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import UserModal from "../user/UserModal";
 
 interface MapProps {
     toiletLocations: any[];
@@ -23,6 +24,7 @@ const Map = ({ toiletLocations, userLocation, isLoading, isToiletsLocationLoadin
 
     const [markerModalData, setMarkerModalData] = useState<ToiletInterface | null>(null);
     const [userFavorites, setUserFavorites] = useState(favorites);
+    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
     if (isLoading || isToiletsLocationLoading) return <Loader />;
     const defaultCenter = userLocation ? { lat: userLocation?.[1], lng: userLocation?.[0] } : { lat: 48.5, lng: 2.4 };
@@ -36,7 +38,7 @@ const Map = ({ toiletLocations, userLocation, isLoading, isToiletsLocationLoadin
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => {
                     return [
-                        userMarkerFactory(map, maps, userLocation),
+                        userMarkerFactory(map, maps, userLocation, setIsUserModalOpen),
                         toiletsMarkerFactory(map, maps, toiletLocations, setMarkerModalData),
                     ];
                 }}
@@ -47,6 +49,11 @@ const Map = ({ toiletLocations, userLocation, isLoading, isToiletsLocationLoadin
                 userFavorites={userFavorites}
                 setUserFavorites={setUserFavorites}
             />
+
+            <UserModal 
+                isUserModalOpen={isUserModalOpen}
+                setIsUserModalOpen={setIsUserModalOpen}
+                />
         </div>
     );
 };
