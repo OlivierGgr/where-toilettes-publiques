@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { LOCAL_STORAGE_FAVORITES } from "../components/map/map.utils";
+import { LOCAL_STORAGE_FAVORITES } from "../components/map/utils/map.utils";
 import favoritesSlice from "./reducers/favoritesSlice";
 
 const store = configureStore({

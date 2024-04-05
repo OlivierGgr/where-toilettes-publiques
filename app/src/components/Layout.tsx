@@ -16,7 +16,7 @@ const Layout = (): JSX.Element => {
     const { userLocation, isLoading } = useGetUserLocation();
     const { toiletLocations, isLoading: isToiletsLocationLoading } = useGetToilets(
         userLocation,
-        searchDistance,
+        // searchDistance,
         filters
     );
 

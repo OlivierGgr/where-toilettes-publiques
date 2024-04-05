@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getNearbyToilets } from "../api";
 import { ToiletInterface } from "../types/types";
 import { FilterProps } from "../components/sider/Sider";
-import { readLocallyStoredData } from "../components/map/map.utils";
+import { readLocallyStoredData } from "../components/map/utils/map.utils";
 
 export default function useGetToilets(userLocation: any, filters: FilterProps) {
     const [toiletLocations, setToiletLocations] = useState<ToiletInterface[]>([]);

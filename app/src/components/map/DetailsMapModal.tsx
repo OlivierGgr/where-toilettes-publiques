@@ -1,5 +1,5 @@
 import { Badge, Modal, Space } from "antd";
-import { LOCAL_STORAGE_FAVORITES } from "./map.utils";
+import { LOCAL_STORAGE_FAVORITES, setFavoritesInLocalStorage } from "./utils/map.utils";
 import { FileTextOutlined, StarFilled } from "@ant-design/icons";
 import { ToiletInterface } from "../../types/types";
 
@@ -9,6 +9,7 @@ type DetailsMapModalProps = {
     userFavorites: any;
     setUserFavorites: (arg: any) => void;
 };
+
 export const DetailsMapModal = ({
     markerModalData,
     setMarkerModalData,
@@ -16,26 +17,6 @@ export const DetailsMapModal = ({
     setUserFavorites,
 }: DetailsMapModalProps) => {
     if (markerModalData == null) return <></>;
-
-    const setFavoritesInLocalStorage = () => {
-        try {
-            if (userFavorites == null) {
-                localStorage.setItem(LOCAL_STORAGE_FAVORITES, btoa(JSON.stringify(markerModalData._id)));
-                return;
-            }
-
-            const favoritesInLocalStorageUpdated = Array.isArray(userFavorites)
-                ? [...userFavorites, markerModalData._id]
-                : [userFavorites, markerModalData._id];
-
-            localStorage.setItem(LOCAL_STORAGE_FAVORITES, btoa(JSON.stringify(favoritesInLocalStorageUpdated)));
-            return;
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setUserFavorites((old: any) => [...old, markerModalData._id]);
-        }
-    };
 
     return (
         <Modal title="Détails" open={markerModalData != null} onCancel={() => setMarkerModalData(null)} footer={null}>
@@ -76,7 +57,7 @@ export const DetailsMapModal = ({
                                 : "favorite"
                         }
                     >
-                        <button className="button" onClick={() => setFavoritesInLocalStorage()}>
+                        <button className="button" onClick={() => setFavoritesInLocalStorage(userFavorites, markerModalData, setUserFavorites)}>
                             <StarFilled />
                             <br />
                         </button>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LOCAL_STORAGE_FAVORITES, readLocallyStoredData } from "../../components/map/map.utils";
+import { LOCAL_STORAGE_FAVORITES, readLocallyStoredData } from "../../components/map/utils/map.utils";
 
 export const favoritesSlice = createSlice({
     name: LOCAL_STORAGE_FAVORITES,
